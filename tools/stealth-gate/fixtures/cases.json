@@ -1,0 +1,280 @@
+{
+  "$comment": "Table of stealth gate cases. Each case scans `text` as if it lived at `path` and expects exactly the rule counts in `expect` ({} means the case must pass). `rule` names the rule the case exercises; the test checks that every rule in RULES_UNDER_TEST has at least one firing and one passing case. Banned strings live here because tools/*/fixtures/** is excluded from real scans.",
+  "cases": [
+    { "rule": "non-focusable", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "new BrowserWindow({ type: 'panel', focusable: false });", "expect": { "non-focusable": 1 } },
+    { "rule": "non-focusable", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "overlay.setFocusable(false);", "expect": { "non-focusable": 1 } },
+    { "rule": "non-focusable", "path": "apps/desktop/src/renderer/lib/win.ts", "text": "remote.setFocusable(!1);", "expect": { "non-focusable": 1 } },
+    { "rule": "non-focusable", "path": "apps/desktop/out/main/app.js", "text": "const w=new BrowserWindow({\"focusable\":!1,show:!1});", "expect": { "non-focusable": 1 } },
+    { "rule": "non-focusable", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const opts = { focusable: isWin ? false : true };", "expect": { "non-focusable": 1 } },
+    { "rule": "non-focusable", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "overlay.focusable = false;", "expect": { "non-focusable": 1 } },
+    { "rule": "non-focusable", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "new BrowserWindow({ focusable: true });\noverlay.setFocusable(true);\noverlay.focusable = true;", "expect": {} },
+    { "rule": "non-focusable", "path": "apps/desktop/src/renderer/components/icon.tsx", "text": "export const Icon = () => <svg focusable=\"false\" aria-hidden=\"true\" />;\nconst attrs = { focusable: 'false' };\n<Item focusable={!disabled} />;\nconst props = { focusable: !disabled };", "expect": {} },
+    { "rule": "non-focusable", "path": "apps/desktop/out/main/chunks/dom.js", "text": "switch(e){case\"autoReverse\":case\"focusable\":case\"preserveAlpha\":return n}", "expect": {} },
+    { "rule": "non-focusable", "path": "apps/site/src/components/tabs.tsx", "text": "const item = { focusable: !disabled };", "expect": {} },
+    { "rule": "non-focusable", "path": "apps/desktop/src/main/attrs.ts", "text": "switch (name) {\n  case \"focusable\":\n    return true;\n}", "expect": {} },
+
+    { "rule": "skip-taskbar", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win['setSkip' + 'Taskbar'](true);", "expect": { "skip-taskbar": 1 } },
+    { "rule": "skip-taskbar", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win[`setSkip${'Task'}bar`](true);", "expect": { "skip-taskbar": 1 } },
+    { "rule": "skip-taskbar", "path": "apps/desktop/native/linux/overlay.c", "text": "gtk_window_set_skip_taskbar_hint(w, TRUE);\ngtk_window_set_skip_pager_hint(w, TRUE); /* _NET_WM_STATE_SKIP_PAGER */", "expect": { "skip-taskbar": 3 } },
+    { "rule": "skip-taskbar", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const verb = 'setSkip';\nwin[verb + 'Taskbar'](true);", "expect": { "skip-taskbar": 1 } },
+    { "rule": "skip-taskbar", "path": "apps/desktop/native/win/taskbar.cc", "text": "ITaskbarList3* list = nullptr;\nlist->DeleteTab(hwnd);", "expect": { "skip-taskbar": 2 } },
+    { "rule": "skip-taskbar", "path": "apps/desktop/native/linux/overlay.c", "text": "gtk_window_set_skip_taskbar_hint(w, TRUE);\ngtk_window_set_skip_pager_hint(w, TRUE); /* _NET_WM_STATE_SKIP_PAGER */", "expect": { "skip-taskbar": 3 } },
+    { "rule": "skip-taskbar", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const verb = 'setSkip';\nconst note = verb + ' is not used';", "expect": {} },
+
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.ts", "text": "app.dock?.hide();", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.ts", "text": "const d = app.dock;\nd?.hide();", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.ts", "text": "const { dock: tray } = app;\ntray['hide']();", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.ts", "text": "const method = 'hide';\napp.dock[method]();", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.ts", "text": "let policy = 'regular';\nif (overlayOnly) policy = 'accessory';\napp.setActivationPolicy(policy);", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/native/mac/App.swift", "text": "NSApp.setActivationPolicy(.accessory)", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/native/mac/App.mm", "text": "[NSApp setActivationPolicy:NSApplicationActivationPolicyProhibited];", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/native/mac/App.mm", "text": "ProcessSerialNumber psn = { 0, kCurrentProcess };\nTransformProcessType(&psn, kProcessTransformToUIElementApplication);", "expect": { "dock-hide": 2 } },
+    { "rule": "dock-hide", "path": "electron-builder.yml", "text": "mac:\n  extendInfo:\n    LSUIElement: true", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "package.json", "text": "{ \"build\": { \"mac\": { \"extendInfo\": { \"LSUIElement\": 1 } } } }", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/electron-builder.toml", "text": "[mac.extendInfo]\nLSUIElement = true", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/electron-builder.json5", "text": "{ mac: { extendInfo: { LSBackgroundOnly: 1 } } }", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": ".github/workflows/release.yml", "text": "- run: /usr/libexec/PlistBuddy -c 'Add :LSUIElement bool true' Geek.app/Contents/Info.plist", "expect": { "dock-hide": 1 } },
+    { "rule": "dock-hide", "path": "apps/desktop/build/Info.plist", "text": "<dict><key>LSUI&#69;lement</key><true/><key>LS&#x55;IElement</key><true/></dict>", "expect": { "dock-hide": 2 } },
+    { "rule": "dock-hide", "path": "apps/desktop/build/Info.plist", "text": "<dict><key>CFBundleName</key><string>Geek &amp; Co &#38; more</string></dict>", "expect": {} },
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.ts", "text": "app.setActivationPolicy('regular');\nconst POLICY = 'regular';\napp.setActivationPolicy(POLICY);\napp.dock?.show();", "expect": {} },
+    { "rule": "dock-hide", "path": "apps/desktop/native/mac/App.swift", "text": "NSApp.setActivationPolicy(.regular)", "expect": {} },
+    { "rule": "dock-hide", "path": "apps/desktop/src/main/app.test.ts", "text": "const app = { setActivationPolicy: vi.fn(), dock: { show: vi.fn() } };", "expect": {} },
+
+    { "rule": "tool-window", "path": "apps/desktop/electron-builder.json", "text": "{ \"overlay\": { \"type\": \"toolbar\" } }", "expect": { "tool-window": 1 } },
+    { "rule": "tool-window", "path": "apps/desktop/native/win/overlay.cc", "text": "SetWindowLongPtrW(hwnd, GWL_EXSTYLE, style | WS_EX_NOACTIVATE);", "expect": { "tool-window": 2 } },
+    { "rule": "tool-window", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "new BrowserWindow({ type: 'panel' });", "expect": {} },
+
+    { "rule": "capture-exclusion", "path": "apps/desktop/native/win/overlay.cc", "text": "BOOL on = TRUE;\nDwmSetWindowAttribute(hwnd, DWMWA_CLOAK, &on, sizeof(on));", "expect": { "capture-exclusion": 1 } },
+    { "rule": "capture-exclusion", "path": "apps/desktop/native/win/user32.ts", "text": "user32.func(`SetWindow${'Display'}Affinity`);", "expect": { "capture-exclusion": 1 } },
+    { "rule": "capture-exclusion", "path": "apps/desktop/native/win/overlay.cc", "text": "BOOL cloaked = FALSE;\nDwmGetWindowAttribute(hwnd, DWMWA_CLOAKED, &cloaked, sizeof(cloaked));", "expect": {} },
+
+    { "rule": "mission-control", "path": "apps/desktop/native/mac/Overlay.swift", "text": "window.collectionBehavior = [.canJoinAllSpaces, .transient]", "expect": { "mission-control": 1 } },
+    { "rule": "mission-control", "path": "apps/desktop/native/mac/Overlay.mm", "text": "window.collectionBehavior = NSWindowCollectionBehaviorIgnoresCycle;", "expect": { "mission-control": 1 } },
+    { "rule": "mission-control", "path": "apps/desktop/native/mac/Overlay.swift", "text": "window.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]", "expect": {} },
+
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win[`setContent${'Protection'}`](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win[`setContent${''}Protection`](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const head = 'setContent';\nconst tail = 'Protection';\nwin[head + tail](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const k = 'Protection';\nwin[`setContent${k}`](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win['setContent\\x50rotection'](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win.set\\u0043ontentProtection(true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win[('setContent') + ('Protection')](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win['setContent'.concat('Protec', 'tion')](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win['setContent' + /* why */ 'Protection'](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win['noitcetorPtnetnoCtes'.split('').reverse().join('')](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "win[String.fromCharCode(115, 101, 116, 67, 111, 110, 116, 101, 110, 116, 80, 114, 111, 116, 101, 99, 116, 105, 111, 110)](true);", "expect": { "content-protection": 1 } },
+    { "rule": "content-protection", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "if (win.isContentProtected()) throw new Error('capture must stay visible');", "expect": {} },
+
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "panel.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true, skipTransformProcessType: true });\nother.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "// skipTransformProcessType: true is required here\npanel.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "panel.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: isMac });", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const visibleOnFullScreen = true;\npanel.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen });", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "panel.setVisibleOnAllWorkspaces(true, { 'visibleOnFullScreen': !0 });", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const opts = { skipTransformProcessType: true };\nopts.visibleOnFullScreen = true;\npanel.setVisibleOnAllWorkspaces(true, opts);", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "panel.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true, skipTransformProcessType: false });", "expect": { "implicit-dock-hide": 1 } },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "const opts = {\n  visibleOnFullScreen: true,\n  skipTransformProcessType: true,\n};\npanel.setVisibleOnAllWorkspaces(true, opts);\npanel.setVisibleOnAllWorkspaces(false, { visibleOnFullScreen: false });", "expect": {} },
+    { "rule": "implicit-dock-hide", "path": "apps/desktop/out/main/app.js", "text": "e.setVisibleOnAllWorkspaces(!0,{visibleOnFullScreen:!0,skipTransformProcessType:!0});", "expect": {} },
+
+    { "rule": "moodle-default-handler", "path": "apps/desktop/src/main/app.test.ts", "text": "const SCHEME = 'moodlemobile';\napp.setAsDefaultProtocolClient(SCHEME);", "expect": { "moodle-default-handler": 1 } },
+    { "rule": "moodle-default-handler", "path": "apps/desktop/src/main/app.ts", "text": "app.setAsDefaultProtocolClient(\"moodlemobile\");", "expect": { "moodle-default-handler": 1 } },
+    { "rule": "moodle-default-handler", "path": "apps/desktop/src/main/app.ts", "text": "app.setAsDefaultProtocolClient(`moodlemobile`);", "expect": { "moodle-default-handler": 1 } },
+    { "rule": "moodle-default-handler", "path": "apps/desktop/src/main/app.ts", "text": "app.setAsDefaultProtocolClient('moodle' + 'mobile');", "expect": { "moodle-default-handler": 1 } },
+    { "rule": "moodle-default-handler", "path": "apps/desktop/src/main/app.ts", "text": "app.setAsDefaultProtocolClient('geek');", "expect": {} },
+
+    { "rule": "default-protocol-client", "path": "apps/desktop/src/main/app.ts", "text": "app.setAsDefaultProtocolClient(scheme);", "expect": { "default-protocol-client": 1 } },
+    { "rule": "default-protocol-client", "path": "apps/desktop/src/main/app.ts", "text": "app.setAsDefaultProtocolClient('mailto');", "expect": { "default-protocol-client": 1 } },
+    { "rule": "default-protocol-client", "path": "apps/desktop/src/main/app.ts", "text": "const PROTOCOL = 'geek';\napp.setAsDefaultProtocolClient(PROTOCOL, process.execPath, [path.resolve(process.argv[1])]);\n// setAsDefaultProtocolClient() is only ever called for geek://", "expect": {} },
+
+    { "rule": "moodle-mobile-ua", "path": "apps/desktop/src/main/eclass/session.ts", "text": "ses.setUserAgent(`${ses.getUserAgent()} moodlemobile`);", "expect": { "moodle-mobile-ua": 1 } },
+    { "rule": "moodle-mobile-ua", "path": "packages/eclass-client/src/preflight.ts", "text": "const ua = 'Mozilla/5.0 MOODLEMOBILE';", "expect": { "moodle-mobile-ua": 1 } },
+    { "rule": "moodle-mobile-ua", "path": "packages/eclass-client/src/preflight.ts", "text": "const ua = 'Moodle' + 'Mobile 4.5';", "expect": { "moodle-mobile-ua": 1 } },
+    { "rule": "moodle-mobile-ua", "path": "apps/desktop/src/main/eclass/connect.ts", "text": "// MoodleMobile is never sent\nconst ua = base;", "expect": { "moodle-mobile-ua": 1 } },
+    { "rule": "moodle-mobile-ua", "path": "apps/desktop/src/main/eclass/connect.ts", "text": "const CAPTURE = /^(moodlemobile|geekapp):\\/\\/token=(.+)$/;\nses.protocol.handle('moodlemobile', handler);\nfor (const scheme of ['moodlemobile', 'geekapp']) ses.protocol.handle(scheme, handler);\nif (new URL(url).protocol === 'moodlemobile:') capture(url);\n// the moodlemobile://token= link, also moodlemobile/geekapp\nconst service = 'moodle_mobile_app';", "expect": {} },
+    { "rule": "moodle-mobile-ua", "path": "apps/desktop/src/main/eclass/canary.ts", "text": "if (config.forcedurlscheme !== 'moodlemobile') alert('scheme changed');\nconst same = config.forcedurlscheme === 'moodlemobile';", "expect": {} },
+    { "rule": "moodle-mobile-ua", "path": "apps/desktop/src/main/eclass/canary.ts", "text": "const cfg = { typeoflogin: 3, forcedurlscheme: 'moodlemobile' };\nses.setUserAgent(ua + ' ' + cfg.forcedurlscheme);", "expect": { "moodle-mobile-ua": 1 } },
+    { "rule": "moodle-mobile-ua", "path": "apps/desktop/src/main/eclass/canary.ts", "text": "const scheme = config.forcedurlscheme;\nses.setUserAgent(base + ' moodlemobile');", "expect": { "moodle-mobile-ua": 1 } },
+    { "rule": "moodle-mobile-ua", "path": "packages/eclass-client/src/client.test.ts", "text": "expect(() => createWsClient({ userAgent: 'MoodleMobile 4.5' })).toThrow();", "expect": {} },
+
+    { "rule": "moodle-scheme-config", "path": "electron-builder.yml", "text": "protocols:\n  - name: Moodle\n    schemes: [moodlemobile]", "expect": { "moodle-scheme-config": 1 } },
+    { "rule": "moodle-scheme-config", "path": "apps/desktop/build/Info.plist", "text": "<key>CFBundleURLSchemes</key>\n<array><string>moodlemobile</string></array>", "expect": { "moodle-scheme-config": 1 } },
+    { "rule": "moodle-scheme-config", "path": "package.json", "text": "{ \"build\": { \"protocols\": [{ \"name\": \"Moodle\", \"schemes\": [\"moodlemobile://\"] }] } }", "expect": { "moodle-scheme-config": 1 } },
+    { "rule": "moodle-scheme-config", "path": "apps/desktop/build/installer.nsh", "text": "WriteRegStr HKCU \"Software\\Classes\\moodlemobile\" \"URL Protocol\" \"\"", "expect": { "moodle-scheme-config": 1 } },
+    { "rule": "moodle-scheme-config", "path": "electron-builder.yml", "text": "protocols:\n  - name: Geek\n    schemes: [geek]", "expect": {} },
+    { "rule": "moodle-scheme-config", "path": "packages/eclass-client/fixtures/tool_mobile_get_public_config.json", "text": "{ \"forcedurlscheme\": \"moodlemobile\", \"typeoflogin\": 3 }", "expect": {} },
+
+    { "rule": "quiz-attempt", "path": "packages/eclass-client/src/allowlist.ts", "text": "'mod_quiz_get_attempt_data',\n'mod_quiz_get_attempt_summary',\n'mod_quiz_get_attempt_review',\n'mod_lesson_launch_attempt',", "expect": { "quiz-attempt": 4 } },
+    { "rule": "quiz-attempt", "path": "packages/eclass-client/src/allowlist.ts", "text": "const allowed = ['mod_quiz_get_quizzes_by_courses', 'mod_quiz_get_user_attempts'];\nexport const NEVER_PATTERN = /_view_|mod_quiz_(?!get_user_attempts\\b)\\w*attempt|start_attempt|get_attempt_|launch_attempt|process_page/;", "expect": {} },
+
+    { "rule": "eclass-write", "path": "packages/eclass-client/src/allowlist.ts", "text": "'mod_resource_view_resource',\n'core_course_view_course',\n'mod_lesson_process_page',\n'mod_assign_lock_submissions',\n'mod_assign_reveal_identities',\n'core_user_agree_site_policy',", "expect": { "eclass-write": 6 } },
+    { "rule": "eclass-write", "path": "packages/eclass-client/src/allowlist.ts", "text": "'gradereport_overview_get_course_grades',\nconst page_view_count = 0;", "expect": {} },
+
+    { "rule": "copy-stealth-claim", "path": "apps/desktop/src/renderer/features/overlay/Settings.tsx", "text": "<Label>Stealth mode for exams</Label>", "expect": { "copy-stealth-claim": 1 } },
+    { "rule": "copy-stealth-claim", "path": "apps/desktop/src/renderer/i18n/en.json", "text": "{ \"overlay.mode\": \"Turn on stealth mode\" }", "expect": { "copy-stealth-claim": 1 } },
+    { "rule": "copy-stealth-claim", "path": "apps/desktop/src/renderer/features/overlay/Settings.tsx", "text": "<p>There is no stealth mode, and Geek will never offer one.</p>\n// S4: a non-stealth overlay panel", "expect": {} },
+
+    { "rule": "copy-invisibility-claim", "path": "apps/desktop/src/renderer/features/overlay/Hero.tsx", "text": "<h1>Invisible during exams</h1>", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const tag = 'Hidden from screen share';", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const tag = 'The overlay won’t show up in recordings';", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const tag = 'A screen-share proof overlay';", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const tag = 'Proctors can’t see the invisible overlay';", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const list = {\n  tag: \"Geek will\",\n  items: [\"Hide from proctors\"],\n};", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/desktop/src/renderer/components/ui/menu.tsx", "text": "<span className=\"invisible absolute inset-0\" />\n<span className={cn('flex', open ? 'visible' : 'invisible')} />\n<span className=\"group-hover:invisible\" />", "expect": {} },
+    { "rule": "copy-invisibility-claim", "path": "apps/desktop/out/renderer/assets/globals.css", "text": ".invisible{visibility:hidden}", "expect": {} },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Geek is never invisible to screen shares.';\nconst b = 'Geek won’t hide from proctors.';", "expect": {} },
+
+    { "rule": "copy-detection-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Proctors can’t be sure: it can’t be detected';", "expect": { "copy-detection-claim": 1 } },
+    { "rule": "copy-detection-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'No proctor will ever know.';", "expect": { "copy-detection-claim": 1 } },
+    { "rule": "copy-detection-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Not just undetectable, but fast.';", "expect": { "copy-detection-claim": 1 } },
+    { "rule": "copy-detection-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Ace the quiz without getting caught.';", "expect": { "copy-detection-claim": 1 } },
+    { "rule": "copy-detection-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Geek never claims to be undetectable.';\nconst b = 'Here is what Geek can’t detect.';", "expect": {} },
+
+    { "rule": "copy-invisibility-claim", "path": "apps/desktop/src/main/windows/overlay.ts", "text": "// keep the overlay invisible to proctors\nexport const opacity = 1;", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/dist/assets/vendor.js", "text": "  // random balls that are invisible if the logo is selected\nconst n = 3;", "expect": {} },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/dist/assets/shader.js", "text": "const frag = `\nuniform float u_time;\n// random balls that are invisible if the logo is selected\nvoid main() {}\n`;\nconst img = `\n<img src=\"https://cdn.example.com/a.png\">\n`;", "expect": {} },
+    { "rule": "copy-invisibility-claim", "path": "apps/site/src/pages/home.tsx", "text": "const body = `\nGeek is invisible\nduring exams.\n`;", "expect": { "copy-invisibility-claim": 1 } },
+    { "rule": "copy-cheating-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Cheat on any quiz.';", "expect": { "copy-cheating-claim": 1 } },
+    { "rule": "copy-cheating-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'It has never been easier to cheat.';", "expect": { "copy-cheating-claim": 1 } },
+    { "rule": "copy-cheating-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Bypass the proctor in one click.';", "expect": { "copy-cheating-claim": 1 } },
+    { "rule": "copy-cheating-claim", "path": "apps/site/src/pages/home.tsx", "text": "const a = 'Geek will never help you cheat.';\nconst b = 'It works next to anti-cheat tools, with a non-cheating mode only.';\nconst c = 'Geek is built to help you learn in the open, not to get around the rules.';", "expect": {} },
+    { "rule": "copy-cheating-claim", "path": "apps/site/src/pages/home.test.tsx", "text": "expect(copy).not.toMatch(/cheat|stealth mode|invisible/i);", "expect": {} }
+  ],
+  "sourceRepo": {
+    "$comment": "Recreates the review's H1 fake repo. Every path in `expect` must be flagged with those rules; build output and generated folders at their anchored roots must not be scanned.",
+    "files": {
+      "apps/desktop/src/main/release/channel.ts": "win.setContentProtection(true);\n",
+      "apps/desktop/src/main/out/x.ts": "new BrowserWindow({ skipTaskbar: true });\n",
+      "apps/desktop/src/main/coverage/y.ts": "app.dock.hide();\n",
+      "electron-builder.yml": "mac:\n  extendInfo:\n    LSUIElement: 1\n",
+      "package.json": "{ \"name\": \"fake\", \"build\": { \"mac\": { \"extendInfo\": { \"LSUIElement\": 1 } } } }\n",
+      "apps/desktop/electron-builder.toml": "[mac.extendInfo]\nLSUIElement = true\n",
+      "apps/desktop/electron-builder.json5": "{ mac: { extendInfo: { LSUIElement: 1 } } }\n",
+      "patches/electron.patch": "+  win->SetSkipTaskbar(true);\n",
+      "scripts/after-pack.sh": "/usr/libexec/PlistBuddy -c 'Add :LSUIElement bool true' \"$APP/Contents/Info.plist\"\n",
+      ".github/workflows/release.yml": "jobs:\n  mac:\n    steps:\n      - run: /usr/libexec/PlistBuddy -c 'Add :LSUIElement bool true' Geek.app/Contents/Info.plist\n",
+      "apps/desktop/src/main/fixtures/ua.ts": "export const UA = 'MoodleMobile 4.5';\n",
+      "packages/eclass-client/src/e2e/fns.ts": "export const FN = 'mod_quiz_start_attempt';\n",
+      "packages/eclass-client/src/__tests__/never.ts": "export const FN = 'mod_quiz_start_attempt';\n",
+      "apps/desktop/shared/target.ts": "win.setHiddenInMissionControl(true);\n",
+      "apps/desktop/out/main/app.js": "win.setContentProtection(true);\n",
+      "apps/desktop/release/mac/app.js": "win.setContentProtection(true);\n",
+      "coverage/lcov-report/app.js": "win.setContentProtection(true);\n",
+      "spikes/out/S1-result.json": "{ \"ua\": \"MoodleMobile\" }\n",
+      "apps/desktop/src/main/clean.ts": "export const ok = true;\n"
+    },
+    "nul": {
+      "apps/desktop/src/main/nul.ts": "// \u0000\nwin.setContentProtection(true);\n"
+    },
+    "bplist": {
+      "apps/desktop/build/Info.plist": "bplist00Ñ\u0001\u0002[LSUIElement\t\b\u000b"
+    },
+    "symlinks": {
+      "apps/desktop/src/main/linked.ts": "apps/desktop/shared/target.ts"
+    },
+    "outsideSymlinks": ["apps/desktop/src/main/outside.ts"],
+    "expect": {
+      "apps/desktop/src/main/release/channel.ts": { "content-protection": 1 },
+      "apps/desktop/src/main/out/x.ts": { "skip-taskbar": 1 },
+      "apps/desktop/src/main/coverage/y.ts": { "dock-hide": 1 },
+      "electron-builder.yml": { "dock-hide": 1 },
+      "package.json": { "dock-hide": 1 },
+      "apps/desktop/electron-builder.toml": { "dock-hide": 1 },
+      "apps/desktop/electron-builder.json5": { "dock-hide": 1 },
+      "patches/electron.patch": { "skip-taskbar": 1 },
+      "scripts/after-pack.sh": { "dock-hide": 1 },
+      ".github/workflows/release.yml": { "dock-hide": 1 },
+      "apps/desktop/src/main/fixtures/ua.ts": { "moodle-mobile-ua": 1 },
+      "packages/eclass-client/src/e2e/fns.ts": { "quiz-attempt": 1 },
+      "apps/desktop/shared/target.ts": { "mission-control": 1 },
+      "apps/desktop/src/main/linked.ts": { "mission-control": 1 },
+      "apps/desktop/src/main/outside.ts": { "unscannable": 1 },
+      "apps/desktop/src/main/nul.ts": { "unscannable": 1, "content-protection": 1 },
+      "apps/desktop/build/Info.plist": { "needs-review": 1, "dock-hide": 1 }
+    }
+  },
+  "builtRepo": {
+    "$comment": "Build output and packaged resources. Every file counts as shipped, so test-looking paths get no relaxation.",
+    "files": {
+      "apps/desktop/out/main/app.js": "const w=new BrowserWindow({show:!1});w.setContentProtection(!0);\n",
+      "apps/desktop/out/renderer/__tests__/data.js": "export const n=\"mod_quiz_start_attempt\";\n",
+      "apps/desktop/out/renderer/assets/index.js": "const a=\"Turn on stealth mode\";\n",
+      "apps/desktop/out/renderer/assets/clean.js": "export const ok=!0;\n",
+      "apps/desktop/release/mac-arm64/Geek.app/Contents/Info.plist": "<plist><dict><key>LSUIElement</key><true/></dict></plist>\n",
+      "apps/desktop/release/mac-arm64/Geek.app/Contents/Frameworks/Geek Helper.app/Contents/Info.plist": "<plist><dict><key>LSUIElement</key><true/></dict></plist>\n",
+      "apps/desktop/release/win-unpacked/LICENSES.chromium.html": "<p>LSUIElement</p>\n",
+      "apps/desktop/release/builder-effective-config.yaml": "protocols:\n  - schemes: [moodlemobile]\n",
+      "packages/contracts/dist/index.js": "export const ua=\"MoodleMobile\";\n"
+    },
+    "binary": {
+      "apps/desktop/out/renderer/assets/font.woff2": "wOF2\u0000\u0001LSUIElement",
+      "apps/desktop/out/renderer/assets/blob.bin": "\u0000\u0001data",
+      "apps/desktop/release/win-unpacked/resources/app.asar.unpacked/native/helper.node": "MZ\u0000\u0000SetWindowDisplayAffinity\u0000"
+    },
+    "asar": {
+      "path": "apps/desktop/release/win-unpacked/resources/app.asar",
+      "entries": {
+        "package.json": "{ \"name\": \"geek\" }",
+        "out/main/app.js": "app.dock.hide();\n"
+      }
+    },
+    "expect": {
+      "apps/desktop/out/main/app.js": { "content-protection": 1 },
+      "apps/desktop/out/renderer/__tests__/data.js": { "quiz-attempt": 1 },
+      "apps/desktop/out/renderer/assets/index.js": { "copy-stealth-claim": 1 },
+      "apps/desktop/out/renderer/assets/blob.bin": { "unscannable": 1 },
+      "apps/desktop/release/mac-arm64/Geek.app/Contents/Info.plist": { "dock-hide": 1 },
+      "apps/desktop/release/builder-effective-config.yaml": { "moodle-scheme-config": 1 },
+      "apps/desktop/release/win-unpacked/resources/app.asar.unpacked/native/helper.node": { "capture-exclusion": 1 },
+      "apps/desktop/release/win-unpacked/resources/app.asar/out/main/app.js": { "dock-hide": 1 },
+      "packages/contracts/dist/index.js": { "moodle-mobile-ua": 1 }
+    }
+  },
+  "packagedRepo": {
+    "$comment": "Packaged apps in their real layouts: Linux resources/ and macOS Geek.app/Contents/Resources/. node_modules ship inside app.asar and in app.asar.unpacked (asarUnpack native modules), so the built pass reads both; every asar entry marked unpacked must be found on disk. Source mode still skips every node_modules folder.",
+    "files": {
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/@libsql/linux-x64-gnu/package.json": "{ \"name\": \"@libsql/linux-x64-gnu\" }\n",
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/hint/index.js": "exports.policy = 'LSBackgroundOnly';\n",
+      "apps/site/.vercel/output/functions/api.func/node_modules/dep/index.js": "module.exports = (w) => w.setContentProtection(true);\n",
+      "node_modules/evil/index.js": "module.exports = (w) => w.setSkipTaskbar(true);\n",
+      "apps/desktop/node_modules/evil/index.js": "module.exports = (w) => w.setSkipTaskbar(true);\n"
+    },
+    "binary": {
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/@libsql/linux-x64-gnu/index.node": "\u007fELF\u0002\u0001\u0000\u0000sqlite3_open_v2\u0000SetWindowDisplayAffinity\u0000napi_create_function\u0000",
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/clean-native/index.node": "\u007fELF\u0002\u0001\u0000\u0000sqlite3_open_v2\u0000napi_create_function\u0000",
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/clean-native/logo.png": "\u0089PNG\r\n\u001a\n\u0000LSUIElement",
+      "apps/desktop/release/mac/Geek.app/Contents/Resources/app.asar.unpacked/node_modules/native-helper/build/Release/helper.node": "Ïúíþ\u0007\u0000\u0000\u0001LSUIElement\u0000_objc_msgSend\u0000"
+    },
+    "asars": [
+      {
+        "path": "apps/desktop/release/linux-unpacked/resources/app.asar",
+        "entries": {
+          "package.json": "{ \"name\": \"geek\" }",
+          "out/main/app.js": "export const ok=!0;\n",
+          "node_modules/helper/index.js": "module.exports = (w) => w.setSkipTaskbar(true);\n",
+          "node_modules/@libsql/linux-x64-gnu/package.json": { "unpacked": true },
+          "node_modules/@libsql/linux-x64-gnu/index.node": { "unpacked": true },
+          "node_modules/@libsql/linux-x64-musl/index.node": { "unpacked": true },
+          "node_modules/clean-native/index.node": { "unpacked": true },
+          "node_modules/clean-native/logo.png": { "unpacked": true },
+          "node_modules/hint/index.js": { "unpacked": true }
+        }
+      },
+      {
+        "path": "apps/desktop/release/mac/Geek.app/Contents/Resources/app.asar",
+        "entries": {
+          "package.json": "{ \"name\": \"geek\" }",
+          "out/main/app.js": "app.dock.hide();\n",
+          "node_modules/native-helper/build/Release/helper.node": { "unpacked": true }
+        }
+      }
+    ],
+    "expect": {
+      "apps/desktop/release/linux-unpacked/resources/app.asar/node_modules/helper/index.js": { "skip-taskbar": 1 },
+      "apps/desktop/release/linux-unpacked/resources/app.asar/node_modules/@libsql/linux-x64-musl/index.node": { "unscannable": 1 },
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/@libsql/linux-x64-gnu/index.node": { "capture-exclusion": 1 },
+      "apps/desktop/release/linux-unpacked/resources/app.asar.unpacked/node_modules/hint/index.js": { "dock-hide": 1 },
+      "apps/desktop/release/mac/Geek.app/Contents/Resources/app.asar/out/main/app.js": { "dock-hide": 1 },
+      "apps/desktop/release/mac/Geek.app/Contents/Resources/app.asar.unpacked/node_modules/native-helper/build/Release/helper.node": { "dock-hide": 1 },
+      "apps/site/.vercel/output/functions/api.func/node_modules/dep/index.js": { "content-protection": 1 }
+    }
+  }
+}
