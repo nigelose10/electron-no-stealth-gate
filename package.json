@@ -1,0 +1,19 @@
+{
+  "name": "electron-no-stealth-gate",
+  "version": "1.0.0",
+  "description": "Zero-dependency CI gate that detects Electron screen-capture exclusion, taskbar/Dock hiding, and proctor-evasion APIs across source, native modules, and packaged app.asar archives.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Nigel-Efeose Akhuetie",
+  "bin": {
+    "stealth-gate": "./tools/stealth-gate/stealth-gate.mjs"
+  },
+  "scripts": {
+    "test": "node --test tools/stealth-gate/stealth-gate.test.mjs",
+    "gate": "node tools/stealth-gate/stealth-gate.mjs",
+    "gate:built": "node tools/stealth-gate/stealth-gate.mjs --built"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
